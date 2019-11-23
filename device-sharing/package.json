@@ -1,10 +1,10 @@
 {
-  "name": "ce-asc-app",
+  "name": "device-sharing",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod && cd dist/ce-asc-app && http-server -c-1 .",
+    "build": "ng build --prod && cd dist/device-sharing && http-server -c-1 .",
     "buildProd": "ng build --prod",
     "startMobile": "ng serve --host 0.0.0.0 --disable-host-check",
     "test": "ng test",

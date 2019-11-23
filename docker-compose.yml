@@ -3,8 +3,8 @@ version: '3'
 services:
 
   device-sharing-app:
-    #container_name: device-sharing-app
-    #image: device-sharing-app
-    build: device-sharing-app
+    #container_name: device-sharing
+    #image: device-sharing
+    build: device-sharing
     ports:
       - "8080:8080"
