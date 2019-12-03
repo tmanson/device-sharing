@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Device;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
@@ -12,11 +11,30 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Device[]    findAll()
  * @method Device[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DeviceRepository extends ServiceEntityRepository
+class DeviceRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Device::class);
+    }
+
+    /**
+     * @return \PagerFanta\Pagerfanta
+     */
+    public function search($term, $order = 'asc', $limit = 20, $offset = 0)
+    {
+        $qb = $this
+            ->createQueryBuilder('d')
+            ->select('d')
+            ->orderBy('d.description', $order);
+
+        if ($term) {
+            $qb
+                ->where('d.description LIKE ?1')
+                ->setParameter(1, '%' . $term . '%');
+        }
+
+        return $this->paginate($qb, $limit, $offset);
     }
 
     // /**

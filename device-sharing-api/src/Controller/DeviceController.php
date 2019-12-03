@@ -1,14 +1,15 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\Device;
+use App\Representation\Devices;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\FOSRestBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -20,13 +21,42 @@ class DeviceController extends AbstractFOSRestController
      *     path = "/devices",
      *     name = "app_device_list"
      * )
+     * @QueryParam(
+     *     name="keyword",
+     *     requirements="[a-zA-Z0-9]",
+     *     nullable=true,
+     *     description="The keyword to search for."
+     * )
+     * @QueryParam(
+     *     name="order",
+     *     requirements="asc|desc",
+     *     default="asc",
+     *     description="Sort order (asc or desc)"
+     * )
+     * @QueryParam(
+     *     name="limit",
+     *     requirements="\d+",
+     *     default="15",
+     *     description="Max number of devices per page."
+     * )
+     * @QueryParam(
+     *     name="offset",
+     *     requirements="\d+",
+     *     default="0",
+     *     description="The pagination offset"
+     * )
      */
-    public function listAction()
+    public function listAction($keyword, $order, $limit, $offset)
     {
-        $devices = $this->getDoctrine()
+        $pager = $this->getDoctrine()
             ->getRepository(Device::class)
-            ->findAll();
-        return $devices;
+            ->search(
+                $keyword,
+                $order,
+                $limit,
+                $offset
+            );
+        return new Devices($pager);
     }
 
     /**

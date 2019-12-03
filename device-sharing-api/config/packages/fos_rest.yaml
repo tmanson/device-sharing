@@ -7,7 +7,7 @@ fos_rest:
         view_response_listener:  'force'
     serializer:
         serialize_null: true
-    param_fetcher_listener:  true
+    param_fetcher_listener:  force
 #    allowed_methods_listener:  true
     routing_loader:
         include_format: false
