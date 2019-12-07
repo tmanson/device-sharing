@@ -21,7 +21,7 @@ class DeviceRepository extends AbstractRepository
     /**
      * @return \PagerFanta\Pagerfanta
      */
-    public function search($term, $order = 'asc', $limit = 20, $offset = 0)
+    public function search($term, $order = 'asc', $limit = 20, $offset = 1)
     {
         $qb = $this
             ->createQueryBuilder('d')

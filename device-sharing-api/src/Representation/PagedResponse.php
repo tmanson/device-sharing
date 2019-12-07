@@ -5,7 +5,7 @@ namespace App\Representation;
 use Pagerfanta\Pagerfanta;
 use JMS\Serializer\Annotation\Type;
 
-class Devices
+class PagedResponse
 {
     /**
      * @Type("array<App\Entity\Device>")

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Device;
-use App\Representation\Devices;
+use App\Representation\PagedResponse;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
@@ -36,13 +36,13 @@ class DeviceController extends AbstractFOSRestController
      * @QueryParam(
      *     name="limit",
      *     requirements="\d+",
-     *     default="15",
+     *     default="20",
      *     description="Max number of devices per page."
      * )
      * @QueryParam(
      *     name="offset",
-     *     requirements="\d+",
-     *     default="0",
+     *     requirements="[1-9][0-9]*",
+     *     default="1",
      *     description="The pagination offset"
      * )
      */
@@ -56,7 +56,7 @@ class DeviceController extends AbstractFOSRestController
                 $limit,
                 $offset
             );
-        return new Devices($pager);
+        return new PagedResponse($pager);
     }
 
     /**
