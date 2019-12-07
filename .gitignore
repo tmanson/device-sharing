@@ -46,3 +46,6 @@ fabric.properties
 *local.settings.json*
 
 **/.vscode/**
+
+.phpunit.result.cache
+
